@@ -62,4 +62,8 @@ function displayBooks() {
     });
 }
 
+function addBookElement() {
+    
+}
+
 displayBooks();
