@@ -25,7 +25,8 @@ console.log(myLibrary);
 
 let library = document.querySelector(".library");
 
-function displayBooks() {
+function displayBooks(myLibrary) {
+    library.innerHTML = "";
     myLibrary.forEach(book => {
         let placeholderBookCover = document.createElement('div');
         placeholderBookCover.className = 'book-cover';
@@ -62,8 +63,127 @@ function displayBooks() {
     });
 }
 
-function addBookElement() {
-    
+// Create the container div
+const bookForm = document.createElement('div');
+bookForm.className = 'new-book-form';
+bookForm.formMethod = "post";
+
+// Create the form element
+const form = document.createElement('form');
+form.className = 'form';
+
+// Create Title field
+const titleDiv = document.createElement('div');
+const titleLabel = document.createElement('label');
+titleLabel.setAttribute('for', 'Title');
+titleLabel.textContent = 'Title';
+const titleInput = document.createElement('input');
+titleInput.id = 'Title';
+titleInput.name = 'Title';
+titleInput.setAttribute('required', 'true');
+
+// Create Author field
+const authorDiv = document.createElement('div');
+const authorLabel = document.createElement('label');
+authorLabel.setAttribute('for', 'Author');
+authorLabel.textContent = 'Author';
+const authorInput = document.createElement('input');
+authorInput.id = 'Author';
+authorInput.name = 'Author';
+authorInput.setAttribute('required', 'true');
+
+// Create Pages field
+const pagesDiv = document.createElement('div');
+const pagesLabel = document.createElement('label');
+pagesLabel.setAttribute('for', 'Pages');
+pagesLabel.textContent = 'Pages';
+const pagesInput = document.createElement('input');
+pagesInput.id = 'Pages';
+pagesInput.name = 'Pages';
+pagesInput.type = 'number';
+pagesInput.setAttribute('required', 'true');
+
+// Create "create" button
+const submitDiv = document.createElement('div');
+const submitButton = document.createElement('button');
+submitButton.textContent = "Create Book";
+submitButton.type = "submit"; 
+submitButton.className = "new-book-button";
+submitButton.style.marginLeft = '1rem';
+
+// Create "isRead" checkbox
+const isReadDiv = document.createElement('div');
+const isReadCheckbox = document.createElement('input');
+const isReadLabel = document.createElement('label');
+isReadDiv.setAttribute('for', 'isRead');
+isReadDiv.textContent = "Is read?";
+isReadCheckbox.type = "checkbox";
+isReadCheckbox.id = "is-read-checkbox";
+isReadCheckbox.name = 'isRead';
+isReadDiv.style.marginLeft = '1rem';
+
+// Assemble the form
+titleDiv.appendChild(titleLabel);
+titleDiv.appendChild(titleInput);
+
+authorDiv.appendChild(authorLabel);
+authorDiv.appendChild(authorInput);
+
+pagesDiv.appendChild(pagesLabel);
+pagesDiv.appendChild(pagesInput);
+
+isReadDiv.appendChild(isReadLabel);
+isReadDiv.appendChild(isReadCheckbox);
+
+submitDiv.appendChild(submitButton);
+
+form.appendChild(titleDiv);
+form.appendChild(authorDiv);
+form.appendChild(pagesDiv);
+pagesDiv.appendChild(isReadDiv);
+form.appendChild(submitDiv);
+
+bookForm.appendChild(form);
+
+// Add form to page - you can specify where to insert it
+// For example, to add it to the header:
+const header = document.querySelector('.header');
+header.appendChild(bookForm);
+
+bookForm.style.display = 'none';
+let newBookButton = document.querySelector('.new-book-button');
+
+function toggleNewBook() {
+    newBookButton.addEventListener('click', (e) => {
+        if (bookForm.style.display === "none") {
+            bookForm.style.display = "flex";
+            console.log("hello");
+        }
+        else {
+            bookForm.style.display = 'none';
+        }
+    });
 }
 
-displayBooks();
+bookForm.addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    const title = titleInput.value;
+    const author = authorInput.value;
+    const pages = pagesInput.value;
+    const isRead = isReadCheckbox.checked;
+
+    console.log('Book Data:', { title, author, pages, isRead });
+    console.log('Book Data:', { isRead });
+    
+    addBookToLibrary(title, author, pages, isRead);
+    displayBooks(myLibrary);
+    
+    // Reset the form
+    form.reset();
+    
+    bookForm.style.display = 'none';
+})
+
+toggleNewBook();
+displayBooks(myLibrary);
