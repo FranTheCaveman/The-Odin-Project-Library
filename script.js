@@ -53,11 +53,21 @@ function displayBooks(myLibrary) {
         readElement.textContent = book.isRead ? "Read" : "Unread";
         readElement.className = book.isRead ? "read" : "unread";
 
+        let deleteBookButton = document.createElement('button');
+        deleteBookButton.textContent = "Delete Book";
+        deleteBookButton.className = "delete-book-button";
+        deleteBookButton.addEventListener("click", function(event) {
+            let bookID = deleteBookButton.parentNode.id;
+            myLibrary = myLibrary.filter((book) => book.id !== bookID);
+            displayBooks(myLibrary);
+        })
+
         newBook.appendChild(placeholderBookCover);
         newBook.appendChild(titleElement);
         newBook.appendChild(authorElement);
         newBook.appendChild(pagesElement);
         newBook.appendChild(readElement);
+        newBook.appendChild(deleteBookButton);
 
         library.appendChild(newBook);
     });

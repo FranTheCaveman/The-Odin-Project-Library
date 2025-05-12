@@ -81,10 +81,26 @@
         transition: transform 0.2s ease;
     }
 
-    .new-book-button:hover {
-        background-color: #7dcb7d;
+    .delete-book-button {
+        top: 0;
+        background-color: rgb(232, 65, 99);
+        border: none;
+        border-radius: 0.2rem;
+        margin-top: 0.5rem;
+        padding: 0.2rem 1rem;
+        font-weight: 700;
+        transition: transform 0.2s ease;
+    }
+
+    .new-book-button:hover{
+        background-color: #91e491;
         cursor: pointer;
         transform:scale(1.05);
+    }
+
+    .delete-book-button:hover{
+        background-color: rgb(255, 87, 121);
+        cursor: pointer;
     }
 
     body {
